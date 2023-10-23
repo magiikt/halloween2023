@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<!-- Votre temps est compté... -->
+<head>
+    <title>Nombre de jours restants...</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #background-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 20s ease-in;
+      background-image: url('maisonhantee.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    #countdown {
+      color: white;
+      font-size: 72px;
+      font-family: 'Gothic', sans-serif;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="background-image"></div>
+  <div id="countdown"></div>
+
+  <script>
+    function calculateDaysUntilOctober28() {
+      const today = new Date();
+      const october28 = new Date(today.getFullYear(), 9, 28);
+      if (today > october28) {
+        october28.setFullYear(today.getFullYear() + 1);
+      }
+      const timeDiff = october28 - today;
+      return Math.ceil(timeDiff / (1000 * 3600 * 24));
+    }
+
+    function fadeInImage() {
+      const image = document.getElementById("background-image");
+      image.style.opacity = 1;
+    }
+
+    window.onload = function () {
+      setTimeout(fadeInImage, 0);
+      const daysUntilOctober28 = calculateDaysUntilOctober28();
+
+      // Créer le nom du fichier d'image en fonction du nombre de jours
+      const imageFileName = `${daysUntilOctober28}.png`;
+      document.getElementById("countdown").innerHTML = `<img src="${imageFileName}" alt="Countdown Image">`;
+    };
+  </script>
+</body>
+</html>
